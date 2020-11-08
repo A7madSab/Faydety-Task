@@ -2,10 +2,13 @@ import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
+import { SettingsProvider } from "./contexts/SettingsContext"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SettingsProvider>
+      <App />
+    </SettingsProvider>
   </React.StrictMode>,
   document.getElementById("root")
 )
