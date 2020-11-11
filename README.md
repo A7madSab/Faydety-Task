@@ -1,6 +1,6 @@
-# Gebhaly
+# Faydety
 
-This project is a small task from gebhaly, Shopping Cart
+This project is a small task from faydety, Styling. 
 
 ## Technology
 
