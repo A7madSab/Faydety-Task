@@ -28,8 +28,8 @@ I intended to use firebase to actually implement the auth functionality but didn
     <p>http://localhost:3000/signup/en</p>
     <p>http://localhost:3000/signup/ar</p>
     <div style="display:flex; flex-direction:row">
-        <img style="margin:15px" width="400" alt="Landing Page" src="./public/readme/1.PNG">
-        <img style="margin:15px" width="400" alt="Create Project" src="./public/readme/2.PNG">
+        <img style="margin:15px" width="400" alt="Landing Page" src="./public/readme/1.png">
+        <img style="margin:15px" width="400" alt="Create Project" src="./public/readme/2.png">
     </div>
 </div>
 
@@ -38,8 +38,8 @@ I intended to use firebase to actually implement the auth functionality but didn
     <p>http://localhost:3000/signin/en</p>    
     <p>http://localhost:3000/signin/ar</p>
     <div style="display:flex; flex-direction:row">
-        <img style="margin:15px" width="400" alt="Create Project" src="./public/readme/3.PNG">
-        <img style="margin:15px" width="400" alt="Landing Page" src="./public/readme/4.PNG">
+        <img style="margin:15px" width="400" alt="Create Project" src="./public/readme/3.png">
+        <img style="margin:15px" width="400" alt="Landing Page" src="./public/readme/4.png">
     </div>
 </div>
 
@@ -49,8 +49,8 @@ I intended to use firebase to actually implement the auth functionality but didn
     <p>http://localhost:3000/forgot-password/en</p>    
     <p>http://localhost:3000/forgot-password/ar</p>
     <div style="display:flex; flex-direction:row">
-        <img style="margin:15px" width="400" alt="Create Project" src="./public/readme/5.PNG">
-        <img style="margin:15px" width="400" alt="Landing Page" src="./public/readme/6.PNG">
+        <img style="margin:15px" width="400" alt="Create Project" src="./public/readme/5.png">
+        <img style="margin:15px" width="400" alt="Landing Page" src="./public/readme/6.png">
     </div>
 </div>
 
