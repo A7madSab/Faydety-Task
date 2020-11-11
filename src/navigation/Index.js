@@ -40,12 +40,12 @@ const routes = [
     },
     {
         exact: true,
-        path: "/signin",
+        path: "/signin/:lang",
         component: lazy(() => import("../views/SignIn"))
     },
     {
         exact: true,
-        path: "/signup",
+        path: "/signup/:lang",
         component: lazy(() => import("../views/SignUp"))
     },
     {

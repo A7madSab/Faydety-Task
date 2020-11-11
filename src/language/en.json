@@ -1,1 +1,23 @@
-{}
+{
+    "Create Account": "Create Account",
+    "Full Name": "Full Name",
+    "Email": "Email",
+    "Email is required.": "Email is required.",
+    "Name is required.": "Name is required.",
+    "Must be a valid email.": "Must be a valid email.",
+    "Password is required.": "Password is required.",
+    "Re-Password is required.": "Re-Password is required.",
+    "Passwords must match.": "Passwords must match.",
+    "Must Accept Terms of Service.": "Must Accept Terms of Service.",
+    "Password": "Password",
+    "Passwords must be at least 8 characters and include a capital letter, number and symbol.": "Passwords must be at least 8 characters and include a capital letter, number and symbol.",
+    "Re-enter Password": "Re-enter Password",
+    "I have read and agree the": "I have read and agree the",
+    "terms & conditions": "terms & conditions",
+    "Create my Free Account": "Create my Free Account",
+    "Already have an account?": "Already have an account?",
+    "OR": "OR",
+    "Login": "Login",
+    "Login w/ Google": "Login w/ Google",
+    "Login w/ Facebook": "Login w/ Facebook"
+}

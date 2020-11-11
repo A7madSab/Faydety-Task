@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import * as Yup from "yup"
@@ -7,6 +7,7 @@ import { Formik } from "formik"
 import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
+import CloseIcon from "@material-ui/icons/Close"
 import Checkbox from "@material-ui/core/Checkbox"
 import TextField from "@material-ui/core/TextField"
 import Container from "@material-ui/core/Container"
@@ -27,6 +28,8 @@ import { FaFacebookF } from "react-icons/fa"
 
 import useIsMountedRef from "../hooks/useIsMountedRef"
 import BackImg from "../assets/logo.png"
+import useSettings from "../hooks/useSettings"
+import Text from "../components/Text"
 
 const styles = makeStyles((theme) => ({
     btnContainer: {
@@ -34,23 +37,39 @@ const styles = makeStyles((theme) => ({
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "contain",
-        height: "80%"
     },
     btnIcon: {
-        width: "300px",
+        width: "250px",
         margin: "10px",
-        padding: "5px",
+        padding: "8px",
         borderRadius: "25px"
+    },
+    formControl: {
+        paddingBottom: "10px"
+    },
+    underlinedText: {
+        textDecoration: "underline",
+        color: theme.palette.primary.main,
+        textDecorationColor: theme.palette.primary.main
+    },
+    largeBtn: {
+        borderRadius: "25px",
+        color: "white",
+        fontWeight: "bold",
+        fontSize: "18px"
+    },
+    checkbox: {
+        color: "#efefef",
     }
 }))
 
-
-const SignUp = () => {
+const SignUp = ({ match }) => {
     const classes = styles()
     const theme = useTheme()
     const matches = useMediaQuery(theme.breakpoints.up("md"))
     const isMountedRef = useIsMountedRef()
     const [form, setForm] = useState({ showPassword: false, showPasswordRepeat: false })
+    const { saveSettings } = useSettings()
 
     const onFormSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
         console.log("onFormSubmitonFormSubmitonFormSubmitonFormSubmit", values)
@@ -68,11 +87,18 @@ const SignUp = () => {
         }
     }
 
+    useEffect(() => {
+        console.log("match.params.langmatch.params.langmatch.params.lang", match.params.lang)
+        match.params.lang.toLowerCase() === "en"
+            ? saveSettings({ direction: "ltr", language: "English" })
+            : saveSettings({ direction: "rtl", language: "Arabic" })
+    }, [])
+
     return (
-        <Container style={{ height: "100%" }}>
-            <Grid container direction="row" justify="center" alignItems="center" style={{ height: "100%" }}>
+        <Container maxWidth="md" style={{ height: "100%" }}>
+            <Grid container direction="row" justify="space-evenly" alignItems="center" style={{ height: "100%" }}>
                 <Grid item md={5} container direction="column" justify="center">
-                    <Typography variant="h1" color="secondary">Create Account</Typography>
+                    <Typography variant="h1" color="secondary"><Text tid="Create Account" /></Typography>
                     <Formik
                         onSubmit={onFormSubmit}
                         initialValues={{
@@ -84,21 +110,22 @@ const SignUp = () => {
                             submit: null
                         }}
                         validationSchema={Yup.object().shape({
-                            name: Yup.string().max(255).required("Name is required."),
-                            email: Yup.string().email("Must be a valid email.").max(255).required("Email is required."),
-                            password: Yup.string().max(255).required("Password is required."),
-                            rePassword: Yup.string().max(255).required("Re-Password is required.").oneOf([Yup.ref("password"), null], "Passwords must match"),
-                            termsConditon: Yup.boolean().oneOf([true], "Must Accept Terms of Service"),
+                            name: Yup.string().max(255).required(<Text tid="Name is required." />),
+                            email: Yup.string().email(<Text tid="Must be a valid email." />).max(255).required(<Text tid="Email is required." />),
+                            password: Yup.string().max(255).required(<Text tid="Password is required." />),
+                            rePassword: Yup.string().max(255).required(<Text tid="Re-Password is required." />).oneOf([Yup.ref("password"), null], <Text tid="Passwords must match." />),
+                            termsConditon: Yup.boolean().oneOf([true], <Text tid="Must Accept Terms of Service." />)
                         })}
                     >
                         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                             <form noValidate onSubmit={handleSubmit}>
                                 <FormControl fullWidth>
-                                    <Typography color="secondary">Full Name</Typography>
+                                    <Typography color="secondary"><Text tid="Full Name" /></Typography>
                                     <TextField
                                         fullWidth
                                         autoFocus
                                         type="text"
+                                        size="small"
                                         name="name"
                                         margin="none"
                                         variant="outlined"
@@ -112,7 +139,7 @@ const SignUp = () => {
                                 </FormControl>
 
                                 <FormControl fullWidth>
-                                    <Typography color="secondary">Email</Typography>
+                                    <Typography color="secondary"><Text tid="Email" /></Typography>
                                     <TextField
                                         fullWidth
                                         autoFocus
@@ -130,13 +157,13 @@ const SignUp = () => {
                                 </FormControl>
 
                                 <FormControl fullWidth>
-                                    <Typography>Password</Typography>
+                                    <Typography color="secondary"><Text tid="Password" /></Typography>
                                     <OutlinedInput
                                         fullWidth
                                         label={null}
                                         labelWidth={0}
                                         name="password"
-                                        margin="none"
+                                        margin="dense"
                                         color="secondary"
                                         autoComplete="on"
                                         onBlur={handleBlur}
@@ -159,19 +186,19 @@ const SignUp = () => {
                                     <FormHelperText style={{ marginLeft: "14px", color: "red" }}>
                                         {touched.password && errors.password}
                                     </FormHelperText>
-                                    <FormHelperText color="error">
-                                        Passwords must be at least 8 characters and include a capital letter, number and symbol.
+                                    <FormHelperText color="error" className={classes.formHelperText}>
+                                        <Text tid="Passwords must be at least 8 characters and include a capital letter, number and symbol." />
                                     </FormHelperText>
                                 </FormControl>
 
                                 <FormControl fullWidth>
-                                    <Typography>Re-enter Password</Typography>
+                                    <Typography color="secondary"><Text tid="Re-enter Password" /></Typography>
                                     <OutlinedInput
                                         fullWidth
                                         label={null}
                                         labelWidth={0}
                                         name="rePassword"
-                                        margin="none"
+                                        margin="dense"
                                         color="secondary"
                                         autoComplete="on"
                                         onBlur={handleBlur}
@@ -196,14 +223,15 @@ const SignUp = () => {
                                 </FormControl>
 
                                 <FormControlLabel
-                                    label={<Typography align="center">I have read and agree the <Link to="/terms">
-                                        <span style={{ color: "green" }}>
-                                            terms & conditions
-                                        </span>
-                                    </Link>
+                                    label={<Typography align="center"><Text tid="I have read and agree the" /> {" "}
+                                        <Link className={classes.underlinedText} to="/terms">
+                                            <Text tid="terms & conditions" />
+                                        </Link>
                                     </Typography>}
                                     control={
                                         <Checkbox
+                                            color="primary"
+                                            className={classes.checkbox}
                                             value={values.termsConditon}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
@@ -220,12 +248,12 @@ const SignUp = () => {
                                     </FormHelperText>
                                 </Box>}
 
-                                <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
-                                    Create my Free Account
-                        </Button>
+                                <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" className={classes.largeBtn}>
+                                    <Text tid="Create my Free Account" />
+                                </Button>
 
                                 <Typography align="center">
-                                    Already have an account? <Link to="/signin">Login</Link>
+                                    <Text tid="Already have an account?" /> <Link className={classes.underlinedText} to="/signin"><Text tid="Login" /></Link>
                                 </Typography>
 
                             </form>
@@ -234,37 +262,38 @@ const SignUp = () => {
                 </Grid>
                 {matches
                     ? <Grid item md={1} container direction="column" justify="center" alignItems="center">
-                        <hr style={{ height: "18vh" }} />
-                        <Typography color="primary" align="center">OR</Typography>
-                        <hr style={{ height: "18vh" }} />
+                        <hr style={{ height: "30vh" }} />
+                        <Typography color="primary" align="center"><Text tid="OR" /></Typography>
+                        <hr style={{ height: "30vh" }} />
                     </Grid>
                     : <Grid item md={1} container direction="row" justify="center" alignItems="center">
                         <hr style={{ width: "26vw" }} />
-                        <Typography color="primary" align="center">OR</Typography>
+                        <Typography color="primary" align="center"><Text tid="OR" /></Typography>
                         <hr style={{ width: "26vw" }} />
                     </Grid>
                 }
-                <Grid style={{ height: "100%" }} item md={6} container direction="column" justify="center" alignItems="center" className={classes.btnContainer}>
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            startIcon={<AiOutlineGoogle />}
-                            className={classes.btnIcon}
-                        >
-                            Login w/ Google
-                        </Button>
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            startIcon={<FaFacebookF />}
-                            className={classes.btnIcon}
-                        >
-                            Login w/ Facebook
-                        </Button>
-                    </Grid>
+                <Grid style={{ height: "80%" }} item md={5} container direction="column" justify="center" alignItems="center" className={classes.btnContainer}>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<AiOutlineGoogle />}
+                        className={classes.btnIcon}
+                    >
+                        <Text tid="Login w/ Google" />
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<FaFacebookF />}
+                        className={classes.btnIcon}
+                    >
+                        <Text tid="Login w/ Facebook" />
+                    </Button>
+                </Grid>
+                <Grid style={{ height: "80%" }} item md={1} container direction="column" justify="flex-start" alignItems="center">
+                    <IconButton>
+                        <CloseIcon />
+                    </IconButton>
                 </Grid>
             </Grid>
         </Container>
@@ -272,116 +301,3 @@ const SignUp = () => {
 }
 
 export default SignUp
-
-// < Container >
-// <Grid container direction="row" justify="center" alignItems="center">
-//     <Grid item xs={6}>
-//         left
-//             </Grid>
-//     <Grid item xs={6}>
-//         right
-//             </Grid>
-// </Grid>
-//     </Container >
-
-// {/* <Input
-// style={{ border: "1px", borderStyle: "solid", padding: "10px", borderRadius:"5px" }}
-// fullWidth
-// autoComplete="on"
-// value={form.old}
-// type={form.showPasswordOld ? "text" : "password"}
-// onChange={e => setForm({ ...form, old: e.target.value })}
-// endAdornment={
-//     <InputAdornment>
-//         <IconButton
-//             aria-label="toggle password visibility"
-//             onClick={() => setForm({ ...form, showPasswordOld: !form.showPasswordOld })}
-//         >
-//             {form.showPasswordOld ? <Visibility /> : <VisibilityOff />}
-//         </IconButton>
-//     </InputAdornment>
-// }
-// labelWidth={70}
-// /> */}
-
-
-
-// {/* <Typography>Re-Enter Password</Typography>
-// <TextField
-//     error={Boolean(touched.rePassword && errors.rePassword)}
-//     fullWidth
-//     helperText={touched.rePassword && errors.rePassword}
-//     margin="normal"
-//     name="subject"
-//     onBlur={handleBlur}
-//     onChange={handleChange}
-//     type="Text"
-//     value={values.rePassword}
-//     variant="outlined"
-// /> */}
-
-
-
-
-
-
-
-
-// {/* <Typography>Email</Typography>
-// <TextField
-//     error={Boolean(touched.email && errors.email)}
-//     fullWidth
-//     autoFocus
-//     helperText={touched.email && errors.email}
-//     margin="normal"
-//     name="email"
-//     onBlur={handleBlur}
-//     onChange={handleChange}
-//     type="email"
-//     value={values.email}
-//     variant="outlined"
-// />
-// <Typography>Password</Typography>
-// <TextField
-//     error={Boolean(touched.password && errors.password)}
-//     fullWidth
-//     helperText={touched.password && errors.password}
-//     margin="normal"
-//     name="subject"
-//     onBlur={handleBlur}
-//     onChange={handleChange}
-//     type="Text"
-//     value={values.password}
-//     variant="outlined"
-//     helperText="Passwords must be at least 8 characters and include a capital letter, number and symbol."
-// />
-
-// <FormControl fullWidth>
-//     <Typography>Re-Enter Password</Typography>
-//     <OutlinedInput
-//         error={Boolean(touched.rePassword && errors.rePassword)}
-//         fullWidth
-//         label="Re-Enter Password"
-//         autoComplete="on"
-//         labelWidth={0}
-//         label={null}
-//         value={values.rePassword}
-//         type={form.showPasswordOld ? "text" : "password"}
-//         onChange={e => setForm({ ...form, old: e.target.value })}
-//         endAdornment={
-//             <InputAdornment>
-//                 <IconButton
-//                     aria-label="toggle password visibility"
-//                     onClick={() => setForm({ ...form, showPasswordOld: !form.showPasswordOld })}
-//                 >
-//                     {form.showPasswordOld ? <Visibility /> : <VisibilityOff />}
-//                 </IconButton>
-//             </InputAdornment>
-//         }
-//     />
-//     <FormHelperText>
-//         {touched.rePassword
-//             ? errors.rePassword
-//             : "Passwords must be at least 8 characters and include a capital letter, number and symbol."}
-//     </FormHelperText>
-// </FormControl> */}
