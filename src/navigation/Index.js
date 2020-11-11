@@ -2,6 +2,7 @@ import { Suspense, Fragment, lazy } from "react"
 import { Switch, Route, Redirect } from "react-router-dom"
 
 import LoadingScreen from "../screens/LoadingScreen"
+import AuthLayout from "../Layout/AuthLayout"
 
 export const renderRoutes = () => {
     return (
@@ -41,16 +42,19 @@ const routes = [
     {
         exact: true,
         path: "/signin/:lang",
+        layout: AuthLayout,
         component: lazy(() => import("../views/SignIn"))
     },
     {
         exact: true,
         path: "/signup/:lang",
+        layout: AuthLayout,
         component: lazy(() => import("../views/SignUp"))
     },
     {
         exact: true,
-        path: "/forgot-password",
+        path: "/forgot-password/:lang",
+        layout: AuthLayout,
         component: lazy(() => import("../views/ForgotPassword"))
     },
     {

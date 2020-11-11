@@ -19,5 +19,10 @@
     "OR": "او",
     "Login": "أدخل",
     "Login w/ Google": "أدخل ب جوجل",
-    "Login w/ Facebook": "الفيسبوك ب جوجل"
+    "Login w/ Facebook": "الفيسبوك ب جوجل",
+    "Forgotten password?": "كلمة سر منسية؟",
+    "Log In": "تسجيل الدخول",
+    "Don't Have An Account ?": "ليس لديك حساب؟",
+    "Send Reset Link": "أرسل رابط إعادة التعيين",
+    "Forget Your Password": "نسيت كلمة المرور"
 }
