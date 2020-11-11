@@ -72,7 +72,7 @@ const SignIn = ({ match }) => {
 
     return (
         <>
-            <Typography variant="h1" color="secondary"><Text tid="Create Account" /></Typography>
+            <Typography variant="h1" color="secondary"><Text tid="Your Account" /></Typography>
             <Formik
                 onSubmit={onFormSubmit}
                 initialValues={{
@@ -106,10 +106,10 @@ const SignIn = ({ match }) => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value={values.email}
-                                helperText={touched.email && <Grid container direction="row" alignItems="center">
+                                helperText={touched.email}
+                                error={Boolean(touched.email && errors.email && <Grid container direction="row" alignItems="center">
                                     <CancelIcon style={{ paddingRight: "5px" }} fontSize="small" />{errors.email}
-                                </Grid>}
-                                error={Boolean(touched.email && errors.email)}
+                                </Grid>)}
                             />
                         </FormControl>
                         <FormControl fullWidth>
@@ -127,7 +127,6 @@ const SignIn = ({ match }) => {
                                 value={values.password}
                                 error={Boolean(touched.password && errors.password)}
                                 type={form.showPassword ? "text" : "password"}
-
                                 endAdornment={
                                     <InputAdornment>
                                         <IconButton
@@ -140,7 +139,7 @@ const SignIn = ({ match }) => {
                                 }
                             />
                             <FormHelperText style={{ marginLeft: "14px", color: "red" }}>
-                                {touched.password && <Grid container direction="row" alignItems="center">
+                                {errors.password && <Grid container direction="row" alignItems="center">
                                     <CancelIcon style={{ paddingRight: "5px" }} fontSize="small" />{errors.password}
                                 </Grid>}
                             </FormHelperText>
@@ -158,7 +157,7 @@ const SignIn = ({ match }) => {
                                         name="termsConditon"
                                     />}
                             />
-                            <Link to="/forgot-password">
+                            <Link to={`/forgot-password/${match.params.lang}`}>
                                 <Typography className={classes.underlinedText}>
                                     <Text tid="Forgotten password?" />
                                 </Typography>
@@ -169,7 +168,7 @@ const SignIn = ({ match }) => {
                             <Text tid="Log In" />
                         </Button>
                         <Typography align="center">
-                            <Text tid="Don't Have An Account ?" />  <Link to="/signup" className={classes.underlinedText}>Sign Up</Link>
+                            <Text tid="Don't Have An Account ?" />  <Link to={`/signup/${match.params.lang}`} className={classes.underlinedText}><Text tid="Sign Up" /></Link>
                         </Typography>
                     </form>
                 )}

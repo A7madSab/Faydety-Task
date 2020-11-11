@@ -226,7 +226,7 @@ const SignUp = ({ match }) => {
                         </Button>
 
                         <Typography align="center">
-                            <Text tid="Already have an account?" /> <Link className={classes.underlinedText} to="/signin"><Text tid="Login" /></Link>
+                            <Text tid="Already have an account?" /> <Link className={classes.underlinedText} to={`/signin/${match.params.lang}`}><Text tid="Login" /></Link>
                         </Typography>
 
                     </form>
